@@ -4,6 +4,7 @@ import StarEmptyIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalfOutlined";
 import StarFullIcon from "@material-ui/icons/Star";
 import { Typography } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   ratingWrapper: {
@@ -15,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Rating({ value, text }) {
+function Rating({ value, text, color }) {
   const classes = useStyles();
   return (
     <div className={classes.ratingWrapper}>
-      <span>
+      <span style={{ color }}>
         {value >= 1 ? (
           <StarFullIcon />
         ) : value >= 0.5 ? (
@@ -28,7 +29,7 @@ function Rating({ value, text }) {
           <StarEmptyIcon />
         )}
       </span>
-      <span>
+      <span style={{ color }}>
         {value >= 2 ? (
           <StarFullIcon />
         ) : value >= 1.5 ? (
@@ -37,7 +38,7 @@ function Rating({ value, text }) {
           <StarEmptyIcon />
         )}
       </span>
-      <span>
+      <span style={{ color }}>
         {value >= 3 ? (
           <StarFullIcon />
         ) : value >= 2.5 ? (
@@ -46,7 +47,7 @@ function Rating({ value, text }) {
           <StarEmptyIcon />
         )}
       </span>
-      <span>
+      <span style={{ color }}>
         {value >= 4 ? (
           <StarFullIcon />
         ) : value >= 3.5 ? (
@@ -55,7 +56,7 @@ function Rating({ value, text }) {
           <StarEmptyIcon />
         )}
       </span>
-      <span>
+      <span style={{ color }}>
         {value >= 5 ? (
           <StarFullIcon />
         ) : value >= 4.5 ? (
@@ -70,5 +71,15 @@ function Rating({ value, text }) {
     </div>
   );
 }
+
+Rating.defaultProps = {
+  color: "#f6a82a",
+};
+
+Rating.propTypes = {
+  value: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+};
 
 export default Rating;
