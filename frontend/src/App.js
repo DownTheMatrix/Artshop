@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 const useStyles = makeStyles((theme) => ({
   mainHeading: {
     fontSize: "1.5rem",
+    fontWeight: 500,
     [theme.breakpoints.up("sm")]: {
       fontSize: "2.5rem",
     },

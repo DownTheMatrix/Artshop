@@ -15,8 +15,10 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import AccountIcon from "@material-ui/icons/AccountCircleOutlined";
+import SettingsIcon from "@material-ui/icons/SettingsOutlined";
+import SearchIcon from "@material-ui/icons/SearchOutlined";
+import ShoppingCart from "@material-ui/icons/ShoppingCartOutlined";
 
 const drawerWidth = 240;
 
@@ -101,7 +103,7 @@ export default function PersistentDrawerRight() {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            Persistent drawer
+            ArtShop
           </Typography>
           <IconButton
             color="inherit"
@@ -141,10 +143,10 @@ export default function PersistentDrawerRight() {
         </div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {["Products", "Search"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 ? <ShoppingCart /> : <SearchIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -152,10 +154,10 @@ export default function PersistentDrawerRight() {
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {["Profile", "Settings"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 ? <AccountIcon /> : <SettingsIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
