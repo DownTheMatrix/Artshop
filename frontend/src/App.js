@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     },
     marginBottom: "2rem",
   },
-  content: {},
 }));
 
 function App() {
@@ -34,7 +33,7 @@ function App() {
     <Router>
       <CssBaseline />
       <Header />
-      <main className={classes.content}>
+      <main>
         <Container>
           <Typography
             className={classes.mainHeading}
