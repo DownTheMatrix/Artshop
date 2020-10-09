@@ -7,6 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
+import {Link as RouterLink} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,14 +48,18 @@ function Product({ product }) {
               {product.description}
             </Typography>
           </CardContent>
+          <CardContent>
+            <Typography variant="body1" color="textSecondary" component="p">
+              {product.rating} from {product.numReviews} reviews
+            </Typography>
+          </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
+          <Link component={RouterLink} to={`/product/${product._id}`} color="inherit" underline="none">
+            <Button size="small" color="primary">
+              Details
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     </React.Fragment>

@@ -19,6 +19,8 @@ import AccountIcon from "@material-ui/icons/AccountCircleOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import SearchIcon from "@material-ui/icons/SearchOutlined";
 import ShoppingCart from "@material-ui/icons/ShoppingCartOutlined";
+import Link from "@material-ui/core/Link";
+import { Link as RouterLink } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -102,9 +104,11 @@ export default function PersistentDrawerRight() {
         })}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap className={classes.title}>
-            ArtShop
-          </Typography>
+          <Link component={RouterLink} to="/" color="inherit" underline="none">
+            <Typography variant="h6" noWrap className={classes.title}>
+              ArtShop
+            </Typography>
+          </Link>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -143,25 +147,61 @@ export default function PersistentDrawerRight() {
         </div>
         <Divider />
         <List>
-          {["Products", "Search"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link
+            component={RouterLink}
+            to="/cart"
+            color="inherit"
+            underline="none"
+          >
+            <ListItem button>
               <ListItemIcon>
-                {index === 0 ? <ShoppingCart /> : <SearchIcon />}
+                <ShoppingCart />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText>Shopping Cart</ListItemText>
             </ListItem>
-          ))}
+          </Link>
+          <Link
+            component={RouterLink}
+            to="/search"
+            color="inherit"
+            underline="none"
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <SearchIcon />
+              </ListItemIcon>
+              <ListItemText>Search</ListItemText>
+            </ListItem>
+          </Link>
         </List>
         <Divider />
         <List>
-          {["Profile", "Settings"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link
+            component={RouterLink}
+            to="/profile"
+            color="inherit"
+            underline="none"
+          >
+            <ListItem button>
               <ListItemIcon>
-                {index === 0 ? <AccountIcon /> : <SettingsIcon />}
+                <AccountIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText>Profile</ListItemText>
             </ListItem>
-          ))}
+          </Link>
+          <Link
+            component={RouterLink}
+            to="/settings"
+            color="inherit"
+            underline="none"
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText>Settings</ListItemText>
+            </ListItem>
+          </Link>
         </List>
       </Drawer>
     </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 /* Material UI */
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -8,6 +9,7 @@ import Container from "@material-ui/core/Container";
 
 /* Custom Components */
 import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       fontSize: "4rem",
     },
-    marginBottom: "2rem"
+    marginBottom: "2rem",
   },
   content: {},
 }));
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   return (
-    <React.Fragment>
+    <Router>
       <CssBaseline />
       <Header />
       <main className={classes.content}>
@@ -41,11 +43,12 @@ function App() {
           >
             Welcome to ArtShop
           </Typography>
-          <HomeScreen />
+          <Route path="/" component={HomeScreen} exact />
+          <Route path="/product/:id" component={ProductScreen} />
         </Container>
       </main>
       <Footer />
-    </React.Fragment>
+    </Router>
   );
 }
 
