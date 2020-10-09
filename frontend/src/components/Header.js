@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: "none",
   },
+  hamburgerButton: {
+    marginLeft: "auto",
+  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -114,7 +117,7 @@ export default function PersistentDrawerRight() {
             aria-label="open drawer"
             edge="end"
             onClick={handleDrawerOpen}
-            className={clsx(open && classes.hide)}
+            className={clsx(open ? classes.hide : classes.hamburgerButton)}
           >
             <MenuIcon />
           </IconButton>
