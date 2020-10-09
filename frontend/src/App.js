@@ -21,10 +21,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       fontSize: "4rem",
     },
+    marginBottom: "2rem"
   },
-  content: {
-    minHeight: "80vh"
-  }
+  content: {},
 }));
 
 function App() {
@@ -42,6 +41,7 @@ function App() {
           >
             Welcome to ArtShop
           </Typography>
+          <HomeScreen />
         </Container>
       </main>
       <Footer />
