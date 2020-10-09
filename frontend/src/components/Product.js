@@ -8,7 +8,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import Rating from "./Rating";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
   pos: {
     marginBottom: 12,
+  },
+  divider: {
+    margin: "0.5rem 0",
   },
 }));
 
@@ -47,15 +52,24 @@ function Product({ product }) {
             <Typography variant="body2" color="textSecondary" component="p">
               {product.description}
             </Typography>
-          </CardContent>
-          <CardContent>
+            <Divider className={classes.divider} />
+            <Rating
+              value={product.rating}
+              text={`${product.numReviews} reviews`}
+            />
+            <Divider className={classes.divider} />
             <Typography variant="body1" color="textSecondary" component="p">
-              {product.rating} from {product.numReviews} reviews
+              ${product.price}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Link component={RouterLink} to={`/product/${product._id}`} color="inherit" underline="none">
+          <Link
+            component={RouterLink}
+            to={`/product/${product._id}`}
+            color="inherit"
+            underline="none"
+          >
             <Button size="small" color="primary">
               Details
             </Button>
