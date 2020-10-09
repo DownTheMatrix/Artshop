@@ -20,7 +20,7 @@ const products = [
     brand: "",
     price: 14.99,
     countInStock: 0,
-    rating: 4,
+    rating: 4.5,
     numReviews: 4,
   },
   {
@@ -32,7 +32,7 @@ const products = [
     brand: "",
     price: 32.99,
     countInStock: 0,
-    rating: 4,
+    rating: 3,
     numReviews: 16,
   },
   {
@@ -44,7 +44,7 @@ const products = [
     brand: "",
     price: 54.99,
     countInStock: 0,
-    rating: 4,
+    rating: 2.5,
     numReviews: 12,
   },
   {
@@ -56,7 +56,7 @@ const products = [
     brand: "",
     price: 28.99,
     countInStock: 0,
-    rating: 4,
+    rating: 5,
     numReviews: 2,
   },
   {
