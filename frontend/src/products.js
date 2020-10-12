@@ -1,7 +1,7 @@
 const products = [
   {
     _id: "1",
-    name: "Product 1",
+    name: "Drawing Pencils",
     imgSrc: "/assets/pencils.jpg",
     description: "Product 1 Text Content",
     category: "",
@@ -13,7 +13,7 @@ const products = [
   },
   {
     _id: "2",
-    name: "Product 2",
+    name: "Crayons",
     imgSrc: "/assets/crayons.jpg",
     description: "Product 2 Text Content",
     category: "",
@@ -25,7 +25,7 @@ const products = [
   },
   {
     _id: "3",
-    name: "Product 3",
+    name: "Sketchbook",
     imgSrc: "/assets/sketchbook.jpg",
     description: "Product 3 Text Content",
     category: "",
@@ -37,7 +37,7 @@ const products = [
   },
   {
     _id: "4",
-    name: "Product 4",
+    name: "Posters",
     imgSrc: "/assets/illustration-posters.jpg",
     description: "Product 4 Text Content",
     category: "",
@@ -49,7 +49,7 @@ const products = [
   },
   {
     _id: "5",
-    name: "Product 5",
+    name: "Color Palettes",
     imgSrc: "/assets/color-palettes.jpg",
     description: "Product 5 Text Content",
     category: "",
@@ -61,7 +61,7 @@ const products = [
   },
   {
     _id: "6",
-    name: "Product 6",
+    name: "Graphic Tablets",
     imgSrc: "/assets/graphic-tablet.jpg",
     description: "Product 6 Text Content",
     category: "",
