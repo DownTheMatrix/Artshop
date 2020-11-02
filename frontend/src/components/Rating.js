@@ -4,7 +4,6 @@ import StarEmptyIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalfOutlined";
 import StarFullIcon from "@material-ui/icons/Star";
 import { Typography } from "@material-ui/core";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   ratingWrapper: {
@@ -74,12 +73,6 @@ function Rating({ value, text, color }) {
 
 Rating.defaultProps = {
   color: "#f6a82a",
-};
-
-Rating.propTypes = {
-  value: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
 };
 
 export default Rating;
