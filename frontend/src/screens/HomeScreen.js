@@ -49,7 +49,7 @@ function HomeScreen() {
       <Grid className={classes.gridContainer} container spacing={3}>
         {products.map((product) => {
           return (
-            <Grid key={product._id} item xs={12} sm={12} md={6} lg={4} xl={3}>
+            <Grid key={product._id} item xs>
               <Product product={product} />
             </Grid>
           );
