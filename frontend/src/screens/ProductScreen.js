@@ -39,9 +39,10 @@ const CustomTooltip = withStyles({
   },
 })(Tooltip);
 
-function ProductScreen({ match }) {
+function ProductScreen({ history, match }) {
   const classes = useStyles();
   const [product, setProduct] = useState({});
+  const [qty, setQty] = useState("");
 
   useEffect(() => {
     let source = axios.CancelToken.source();
@@ -56,6 +57,10 @@ function ProductScreen({ match }) {
       source.cancel();
     };
   }, [match]);
+
+  const handleAddToCart = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`)
+  }
 
   return (
     <React.Fragment>
@@ -134,7 +139,7 @@ function ProductScreen({ match }) {
                 </ListItem>
                 {product.countInStock > 0 && (
                   <ListItem>
-                    <SelectQuantity product={product} />
+                    <SelectQuantity product={product} qty={qty} setQty={setQty} />
                   </ListItem>
                 )}
                 <ListItem>
@@ -147,6 +152,7 @@ function ProductScreen({ match }) {
                   >
                     <span>
                       <Button
+                        onClick={handleAddToCart}
                         disabled={product.countInStock === 0}
                         variant="contained"
                         color="primary"
