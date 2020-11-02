@@ -13,6 +13,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { Typography } from "@material-ui/core";
 import axios from "axios";
+import SelectQuantity from "../components/SelectQuantity";
 
 const useStyles = makeStyles((theme) => ({
   buttonLink: {
@@ -40,7 +41,6 @@ const CustomTooltip = withStyles({
 
 function ProductScreen({ match }) {
   const classes = useStyles();
-
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -132,6 +132,11 @@ function ProductScreen({ match }) {
                     />
                   </Grid>
                 </ListItem>
+                {product.countInStock > 0 && (
+                  <ListItem>
+                    <SelectQuantity product={product} />
+                  </ListItem>
+                )}
                 <ListItem>
                   <CustomTooltip
                     title={
