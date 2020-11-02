@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import products from "../data/products";
 import Product from "../components/Product";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -24,6 +24,23 @@ const useStyles = makeStyles((theme) => ({
 
 function HomeScreen() {
   const classes = useStyles();
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    let source = axios.CancelToken.source();
+    const fetchProducts = async () => {
+      const res = await axios.get("/api/products", {
+        cancelToken: source.token,
+      });
+      setProducts(res.data);
+    };
+    fetchProducts();
+    return () => {
+      source.cancel();
+    };
+  }, []);
+
   return (
     <React.Fragment>
       <Typography className={classes.mainHeading} align="center" variant="h1">

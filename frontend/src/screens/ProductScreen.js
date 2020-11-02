@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -8,11 +8,11 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Rating from "../components/Rating";
-import products from "../data/products";
 import Tooltip from "@material-ui/core/Tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { Typography } from "@material-ui/core";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   buttonLink: {
@@ -32,15 +32,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CustomTooltip = withStyles({
-    tooltip: {
-      fontSize: ".75rem",
-      padding: ".75rem"
-    }
-  })(Tooltip);
+  tooltip: {
+    fontSize: ".75rem",
+    padding: ".75rem",
+  },
+})(Tooltip);
 
 function ProductScreen({ match }) {
   const classes = useStyles();
-  const product = products.find((product) => product._id === match.params.id);
+
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    let source = axios.CancelToken.source();
+    const fetchProduct = async () => {
+      const res = await axios.get(`/api/products/${match.params.id}`, {
+        cancelToken: source.token,
+      });
+      setProduct(res.data);
+    };
+    fetchProduct();
+    return () => {
+      source.cancel();
+    };
+  }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
