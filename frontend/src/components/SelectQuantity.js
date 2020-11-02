@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -16,9 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectQuantity = ({ product }) => {
+const SelectQuantity = ({ product, qty, setQty }) => {
   const classes = useStyles();
-  const [qty, setQty] = useState("");
   return (
     <Grid container>
       <Grid item>
