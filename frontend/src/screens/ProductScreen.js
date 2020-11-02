@@ -55,7 +55,7 @@ function ProductScreen({ match }) {
     return () => {
       source.cancel();
     };
-  }, []);
+  }, [match]);
 
   return (
     <React.Fragment>
