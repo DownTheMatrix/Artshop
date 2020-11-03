@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Rating from "../components/Rating";
@@ -17,12 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
+import ButtonLink from "../components/ButtonLink";
 
 const useStyles = makeStyles((theme) => ({
-  buttonLink: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
   customContainer: {
     padding: theme.spacing(2),
   },
@@ -61,15 +59,9 @@ function ProductScreen({ history, match }) {
     <React.Fragment>
       <CssBaseline />
       <Container className={classes.customContainer} maxWidth="lg">
-        <Button
-          className={classes.buttonLink}
-          variant="outlined"
-          color="secondary"
-          to="/"
-          component={RouterLink}
-        >
+        <ButtonLink component={RouterLink} to="/">
           Go Back
-        </Button>
+        </ButtonLink>
         {loading ? (
           <Loader />
         ) : error ? (
@@ -143,9 +135,17 @@ function ProductScreen({ history, match }) {
                     <ListItem>
                       <SelectQuantity
                         product={product}
-                        qty={qty}
-                        setQty={setQty}
-                      />
+                        value={qty}
+                        handleValueChange={(evt) => setQty(evt.target.value)}
+                      >
+                        {[...Array(product.countInStock).keys()].map(
+                          (product) => (
+                            <MenuItem key={product + 1} value={product + 1}>
+                              {product + 1}
+                            </MenuItem>
+                          )
+                        )}
+                      </SelectQuantity>
                     </ListItem>
                   )}
                   <ListItem>

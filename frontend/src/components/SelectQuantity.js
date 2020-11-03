@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectQuantity = ({ product, qty, setQty }) => {
+const SelectQuantity = ({ product, qty, setQty, children, value, handleValueChange }) => {
   const classes = useStyles();
   return (
     <Grid container>
@@ -28,14 +28,17 @@ const SelectQuantity = ({ product, qty, setQty }) => {
           <Select
             name="products-quantity"
             id="products-quantity"
-            value={qty}
-            onChange={(evt) => setQty(evt.target.value)}
+            /* value={qty}
+            onChange={(evt) => setQty(evt.target.value)} */
+            value={value}
+            onChange={handleValueChange}
           >
-            {[...Array(product.countInStock).keys()].map((product) => (
+            {/* {[...Array(product.countInStock).keys()].map((product) => (
               <MenuItem key={product + 1} value={product + 1}>
                 {product + 1}
               </MenuItem>
-            ))}
+            ))} */}
+            {children}
           </Select>
         </FormControl>
       </Grid>
