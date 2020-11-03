@@ -42,7 +42,7 @@ const CustomTooltip = withStyles({
 function ProductScreen({ history, match }) {
   const classes = useStyles();
   const [product, setProduct] = useState({});
-  const [qty, setQty] = useState("");
+  const [qty, setQty] = useState(1);
 
   useEffect(() => {
     let source = axios.CancelToken.source();
