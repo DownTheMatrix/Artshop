@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-app.get("/api/products", (req, res) => {
+app.get("/api/products", (req, res) => { // Error handling: throw new Error("error message")
   res.json(products);
 });
 
