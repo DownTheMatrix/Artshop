@@ -30,9 +30,7 @@ const SelectQuantity = ({ product, qty, setQty }) => {
             id="products-quantity"
             value={qty}
             onChange={(evt) => setQty(evt.target.value)}
-            displayEmpty
           >
-            <MenuItem value="">0</MenuItem>
             {[...Array(product.countInStock).keys()].map((product) => (
               <MenuItem key={product + 1} value={product + 1}>
                 {product + 1}
