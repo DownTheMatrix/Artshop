@@ -12,8 +12,11 @@ import Tooltip from "@material-ui/core/Tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { Typography } from "@material-ui/core";
-import axios from "axios";
 import SelectQuantity from "../components/SelectQuantity";
+import { useDispatch, useSelector } from "react-redux";
+import { listProductDetails } from "../actions/productActions";
+import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
 
 const useStyles = makeStyles((theme) => ({
   buttonLink: {
@@ -41,26 +44,18 @@ const CustomTooltip = withStyles({
 
 function ProductScreen({ history, match }) {
   const classes = useStyles();
-  const [product, setProduct] = useState({});
   const [qty, setQty] = useState(1);
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    let source = axios.CancelToken.source();
-    const fetchProduct = async () => {
-      const res = await axios.get(`/api/products/${match.params.id}`, {
-        cancelToken: source.token,
-      });
-      setProduct(res.data);
-    };
-    fetchProduct();
-    return () => {
-      source.cancel();
-    };
-  }, [match]);
+    dispatch(listProductDetails(match.params.id));
+  }, [dispatch]);
 
   const handleAddToCart = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
-  }
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
 
   return (
     <React.Fragment>
@@ -75,98 +70,110 @@ function ProductScreen({ history, match }) {
         >
           Go Back
         </Button>
-        <Grid container>
-          <Grid item md={4}>
-            <img
-              className={classes.productImage}
-              src={product.imgSrc}
-              alt={product.name}
-            />
-          </Grid>
-          <Grid item md={6}>
-            <List>
-              <ListItem>
-                <ListItemText>
-                  <Typography variant="h5">{product.name}</Typography>
-                </ListItemText>
-              </ListItem>
-              <ListItem>
-                <ListItemText>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListItemText>
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={`Price: ${product.price}`} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={`Description: ${product.description}`} />
-              </ListItem>
-            </List>
-          </Grid>
-
-          <Grid item md={2}>
-            <Paper elevation={1} variant="outlined">
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <ErrorMessage>{error}</ErrorMessage>
+        ) : (
+          <Grid container>
+            <Grid item md={4}>
+              <img
+                className={classes.productImage}
+                src={product.imgSrc}
+                alt={product.name}
+              />
+            </Grid>
+            <Grid item md={6}>
               <List>
-                <ListItem divider>
-                  <Grid item>
-                    <ListItemText
-                      style={{ fontWeight: "bold" }}
-                      className={classes.listItem}
-                      primary="Price:"
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText primary={product.price} />
-                  </Grid>
+                <ListItem>
+                  <ListItemText>
+                    <Typography variant="h5">{product.name}</Typography>
+                  </ListItemText>
                 </ListItem>
                 <ListItem>
-                  <Grid item>
-                    <ListItemText
-                      className={classes.listItem}
-                      primary="Status:"
+                  <ListItemText>
+                    <Rating
+                      value={product.rating}
+                      text={`${product.numReviews} reviews`}
                     />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText
-                      primary={
-                        product.countInStock > 0 ? "In Stock" : "Out Of Stock"
-                      }
-                    />
-                  </Grid>
+                  </ListItemText>
                 </ListItem>
-                {product.countInStock > 0 && (
-                  <ListItem>
-                    <SelectQuantity product={product} qty={qty} setQty={setQty} />
-                  </ListItem>
-                )}
                 <ListItem>
-                  <CustomTooltip
-                    title={
-                      product.countInStock === 0
-                        ? "This item is temporarily out of stock"
-                        : ""
-                    }
-                  >
-                    <span>
-                      <Button
-                        onClick={handleAddToCart}
-                        disabled={product.countInStock === 0}
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                      >
-                        Add To Cart
-                      </Button>
-                    </span>
-                  </CustomTooltip>
+                  <ListItemText primary={`Price: ${product.price}`} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary={`Description: ${product.description}`}
+                  />
                 </ListItem>
               </List>
-            </Paper>
+            </Grid>
+
+            <Grid item md={2}>
+              <Paper elevation={1} variant="outlined">
+                <List>
+                  <ListItem divider>
+                    <Grid item>
+                      <ListItemText
+                        style={{ fontWeight: "bold" }}
+                        className={classes.listItem}
+                        primary="Price:"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <ListItemText primary={product.price} />
+                    </Grid>
+                  </ListItem>
+                  <ListItem>
+                    <Grid item>
+                      <ListItemText
+                        className={classes.listItem}
+                        primary="Status:"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <ListItemText
+                        primary={
+                          product.countInStock > 0 ? "In Stock" : "Out Of Stock"
+                        }
+                      />
+                    </Grid>
+                  </ListItem>
+                  {product.countInStock > 0 && (
+                    <ListItem>
+                      <SelectQuantity
+                        product={product}
+                        qty={qty}
+                        setQty={setQty}
+                      />
+                    </ListItem>
+                  )}
+                  <ListItem>
+                    <CustomTooltip
+                      title={
+                        product.countInStock === 0
+                          ? "This item is temporarily out of stock"
+                          : ""
+                      }
+                    >
+                      <span>
+                        <Button
+                          onClick={handleAddToCart}
+                          disabled={product.countInStock === 0}
+                          variant="contained"
+                          color="primary"
+                          fullWidth
+                        >
+                          Add To Cart
+                        </Button>
+                      </span>
+                    </CustomTooltip>
+                  </ListItem>
+                </List>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Container>
     </React.Fragment>
   );
