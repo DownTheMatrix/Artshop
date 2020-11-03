@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
+import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -17,7 +18,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../components/ErrorMessage";
-import { addToCart } from "../actions/cartActions";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 import ButtonLink from "../components/ButtonLink";
 import SelectQuantity from "../components/SelectQuantity";
 
@@ -30,6 +31,13 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     height: "auto",
     padding: ".5rem",
+  },
+  productDetailLink: {
+    textDecoration: "none",
+    fontSize: "1rem",
+    "&:hover": {
+      textDecoration: "inherit",
+    },
   },
 }));
 
@@ -44,8 +52,6 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  /*   console.log(cartItems); */
-
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -53,12 +59,12 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (id) => {
-    console.log("Removed", id);
+    dispatch(removeFromCart(id));
   };
 
   const handleCheckout = () => {
     console.log("Checkout");
-    history.push("/login?redirect=shipping")
+    history.push("/login?redirect=shipping");
   };
 
   return (
@@ -67,9 +73,9 @@ const CartScreen = ({ match, location, history }) => {
         <Typography variant="h5" component="h1">
           Shopping Cart
         </Typography>
-        {cartItems.length === 0 ? (
+        {cartItems.length == 0 ? (
           <ErrorMessage>
-            Your cart is empty
+            Your cart is empty{" "}
             <ButtonLink to="/" component={RouterLink}>
               Go Back
             </ButtonLink>
@@ -86,12 +92,13 @@ const CartScreen = ({ match, location, history }) => {
                   />
                 </Grid>
                 <Grid item md={3}>
-                  <ButtonLink
+                  <Link
+                    className={classes.productDetailLink}
                     component={RouterLink}
                     to={`/product/${item.product}`}
                   >
                     {item.name}
-                  </ButtonLink>
+                  </Link>
                 </Grid>
                 <Grid item md={2}>
                   ${item.price}

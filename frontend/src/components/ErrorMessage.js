@@ -5,8 +5,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   errorMessage: {
     display: "block",
-    color: "orangered",
-    textAlign: "center"
+    color: "orangered"
   },
 }));
 

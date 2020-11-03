@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonLink = ({ text, variant, component, to, color }) => {
+const ButtonLink = ({ children, variant, component, to, color }) => {
   const classes = useStyles();
   return (
     <Button
@@ -19,7 +19,7 @@ const ButtonLink = ({ text, variant, component, to, color }) => {
       component={component}
       to={to}
     >
-      {text}
+      {children}
     </Button>
   );
 };
