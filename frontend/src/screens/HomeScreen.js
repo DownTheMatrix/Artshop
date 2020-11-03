@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Product from "../components/Product";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../actions/productActions";
+import Loader from "../components/Loader"
+import ErrorMessage from "../components/ErrorMessage"
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -25,36 +28,34 @@ const useStyles = makeStyles((theme) => ({
 function HomeScreen() {
   const classes = useStyles();
 
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
   useEffect(() => {
-    let source = axios.CancelToken.source();
-    const fetchProducts = async () => {
-      const res = await axios.get("/api/products", {
-        cancelToken: source.token,
-      });
-      setProducts(res.data);
-    };
-    fetchProducts();
-    return () => {
-      source.cancel();
-    };
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <React.Fragment>
       <Typography className={classes.mainHeading} align="center" variant="h1">
         Welcome to ArtShop
       </Typography>
-      <Grid className={classes.gridContainer} container spacing={3}>
-        {products.map((product) => {
-          return (
-            <Grid key={product._id} item xs>
-              <Product product={product} />
-            </Grid>
-          );
-        })}
-      </Grid>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <ErrorMessage>{error}</ErrorMessage>
+      ) : (
+        <Grid className={classes.gridContainer} container spacing={3}>
+          {products.map((product) => {
+            return (
+              <Grid key={product._id} item xs>
+                <Product product={product} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
     </React.Fragment>
   );
 }
