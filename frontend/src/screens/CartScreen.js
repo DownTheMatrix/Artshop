@@ -79,7 +79,7 @@ const CartScreen = ({ match, location, history }) => {
         <Typography variant="h5" component="h1">
           Shopping Cart
         </Typography>
-        {cartItems.length == 0 ? (
+        {cartItems.length === 0 ? (
           <ErrorMessage>
             Your cart is empty{" "}
             <ButtonLink to="/" component={RouterLink}>

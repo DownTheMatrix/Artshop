@@ -184,7 +184,7 @@ export default function PersistentDrawerRight() {
         <List>
           <Link
             component={RouterLink}
-            to="/profile"
+            to="/login"
             color="inherit"
             underline="none"
           >
