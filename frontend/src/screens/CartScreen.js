@@ -11,10 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../components/ErrorMessage";
@@ -34,9 +31,17 @@ const useStyles = makeStyles((theme) => ({
   },
   productDetailLink: {
     textDecoration: "none",
-    fontSize: "1rem",
+    fontSize: ".90rem",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "inherit",
+    },
     "&:hover": {
       textDecoration: "inherit",
+    },
+  },
+  reponsiveListItem: {
+    [theme.breakpoints.down("xs")]: {
+      padding: "0"
     },
   },
 }));
@@ -83,51 +88,53 @@ const CartScreen = ({ match, location, history }) => {
         ) : (
           <List>
             {cartItems.map((item) => (
-            
-                <ListItem key={item.product}>
-                  <Grid item xs>
-                    <img
-                      className={classes.productImage}
-                      src={item.image}
-                      alt={item.name}
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <Link
-                      className={classes.productDetailLink}
-                      component={RouterLink}
-                      to={`/product/${item.product}`}
-                    >
-                      {item.name}
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    ${item.price}
-                  </Grid>
-                  <Grid item xs>
-                    <SelectQuantity
-                      value={item.qty}
-                      handleValueChange={(evt) =>
-                        dispatch(addToCart(item.product, evt.target.value))
-                      }
-                    >
-                      {[...Array(item.countInStock).keys()].map((product) => (
-                        <MenuItem key={product + 1} value={product + 1}>
-                          {product + 1}
-                        </MenuItem>
-                      ))}
-                    </SelectQuantity>
-                  </Grid>
-                  <Grid item xs>
-                    <IconButton
-                      onClick={() => removeFromCartHandler(item.product)}
-                      color="secondary"
-                      aria-label="Delete item"
-                      component="div"
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Grid>
+              <ListItem
+                key={item.product}
+                className={classes.reponsiveListItem}
+              >
+                <Grid item xs key={item.product}>
+                  <img
+                    className={classes.productImage}
+                    src={item.image}
+                    alt={item.name}
+                  />
+                </Grid>
+                <Grid item xs>
+                  <Link
+                    className={classes.productDetailLink}
+                    component={RouterLink}
+                    to={`/product/${item.product}`}
+                  >
+                    {item.name}
+                  </Link>
+                </Grid>
+                <Grid item xs>
+                  ${item.price}
+                </Grid>
+                <Grid item xs>
+                  <SelectQuantity
+                    value={item.qty}
+                    handleValueChange={(evt) =>
+                      dispatch(addToCart(item.product, evt.target.value))
+                    }
+                  >
+                    {[...Array(item.countInStock).keys()].map((product) => (
+                      <MenuItem key={product + 1} value={product + 1}>
+                        {product + 1}
+                      </MenuItem>
+                    ))}
+                  </SelectQuantity>
+                </Grid>
+                <Grid item xs>
+                  <IconButton
+                    onClick={() => removeFromCartHandler(item.product)}
+                    color="secondary"
+                    aria-label="Delete item"
+                    component="div"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
               </ListItem>
             ))}
           </List>
@@ -135,30 +142,32 @@ const CartScreen = ({ match, location, history }) => {
       </Grid>
       <Grid item xs>
         <Card>
-          <List>
-            <ListItem>
-              <ListItemText>
-                <Typography variant="h6" component="h2">
-                  Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                  ) items
-                </Typography>
-                $
-                {cartItems
-                  .reduce((acc, item) => acc + item.qty * item.price, 0)
-                  .toFixed(2)}
-              </ListItemText>
-            </ListItem>
-            <ListItem>
-              <Button
-                color="primary"
-                variant="contained"
-                disabled={cartItems.length === 0}
-                onClick={handleCheckout}
-              >
-                Proceed to Checkout
-              </Button>
-            </ListItem>
-          </List>
+          <CardContent>
+            <List>
+              <ListItem>
+                <ListItemText>
+                  <Typography variant="h6" component="h2">
+                    Subtotal (
+                    {cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
+                  </Typography>
+                  $
+                  {cartItems
+                    .reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .toFixed(2)}
+                </ListItemText>
+              </ListItem>
+              <ListItem>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  disabled={cartItems.length === 0}
+                  onClick={handleCheckout}
+                >
+                  Proceed to Checkout
+                </Button>
+              </ListItem>
+            </List>
+          </CardContent>
         </Card>
       </Grid>
     </Grid>
