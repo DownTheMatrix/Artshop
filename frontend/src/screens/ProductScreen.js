@@ -68,14 +68,14 @@ function ProductScreen({ history, match }) {
           <ErrorMessage>{error}</ErrorMessage>
         ) : (
           <Grid container>
-            <Grid item md={4}>
+            <Grid item xs={12} md={6} lg={4}>
               <img
                 className={classes.productImage}
                 src={product.imgSrc}
                 alt={product.name}
               />
             </Grid>
-            <Grid item md={6}>
+            <Grid item xs={12} md={6} lg={6}>
               <List>
                 <ListItem>
                   <ListItemText>
@@ -101,7 +101,7 @@ function ProductScreen({ history, match }) {
               </List>
             </Grid>
 
-            <Grid item md={2}>
+            <Grid item xs={6} md={12} lg={2}>
               <Paper elevation={1} variant="outlined">
                 <List>
                   <ListItem divider>
