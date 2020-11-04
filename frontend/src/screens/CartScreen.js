@@ -83,56 +83,57 @@ const CartScreen = ({ match, location, history }) => {
         ) : (
           <List>
             {cartItems.map((item) => (
-              <ListItem key={item.product}>
-                <Grid item md={2}>
-                  <img
-                    className={classes.productImage}
-                    src={item.image}
-                    alt={item.name}
-                  />
-                </Grid>
-                <Grid item md={3}>
-                  <Link
-                    className={classes.productDetailLink}
-                    component={RouterLink}
-                    to={`/product/${item.product}`}
-                  >
-                    {item.name}
-                  </Link>
-                </Grid>
-                <Grid item md={2}>
-                  ${item.price}
-                </Grid>
-                <Grid item md={2}>
-                  <SelectQuantity
-                    value={item.qty}
-                    handleValueChange={(evt) =>
-                      dispatch(addToCart(item.product, evt.target.value))
-                    }
-                  >
-                    {[...Array(item.countInStock).keys()].map((product) => (
-                      <MenuItem key={product + 1} value={product + 1}>
-                        {product + 1}
-                      </MenuItem>
-                    ))}
-                  </SelectQuantity>
-                </Grid>
-                <Grid item md={2}>
-                  <IconButton
-                    onClick={() => removeFromCartHandler(item.product)}
-                    color="secondary"
-                    aria-label="Delete item"
-                    component="div"
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Grid>
+            
+                <ListItem key={item.product}>
+                  <Grid item xs>
+                    <img
+                      className={classes.productImage}
+                      src={item.image}
+                      alt={item.name}
+                    />
+                  </Grid>
+                  <Grid item xs>
+                    <Link
+                      className={classes.productDetailLink}
+                      component={RouterLink}
+                      to={`/product/${item.product}`}
+                    >
+                      {item.name}
+                    </Link>
+                  </Grid>
+                  <Grid item xs>
+                    ${item.price}
+                  </Grid>
+                  <Grid item xs>
+                    <SelectQuantity
+                      value={item.qty}
+                      handleValueChange={(evt) =>
+                        dispatch(addToCart(item.product, evt.target.value))
+                      }
+                    >
+                      {[...Array(item.countInStock).keys()].map((product) => (
+                        <MenuItem key={product + 1} value={product + 1}>
+                          {product + 1}
+                        </MenuItem>
+                      ))}
+                    </SelectQuantity>
+                  </Grid>
+                  <Grid item xs>
+                    <IconButton
+                      onClick={() => removeFromCartHandler(item.product)}
+                      color="secondary"
+                      aria-label="Delete item"
+                      component="div"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Grid>
               </ListItem>
             ))}
           </List>
         )}
       </Grid>
-      <Grid item md={4}>
+      <Grid item xs>
         <Card>
           <List>
             <ListItem>
