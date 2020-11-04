@@ -1,6 +1,5 @@
 import React from "react";
 import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectQuantity = ({ product, qty, setQty, children, value, handleValueChange }) => {
+const SelectQuantity = ({ children, value, handleValueChange }) => {
   const classes = useStyles();
   return (
     <Grid container>
@@ -28,16 +27,9 @@ const SelectQuantity = ({ product, qty, setQty, children, value, handleValueChan
           <Select
             name="products-quantity"
             id="products-quantity"
-            /* value={qty}
-            onChange={(evt) => setQty(evt.target.value)} */
             value={value}
             onChange={handleValueChange}
           >
-            {/* {[...Array(product.countInStock).keys()].map((product) => (
-              <MenuItem key={product + 1} value={product + 1}>
-                {product + 1}
-              </MenuItem>
-            ))} */}
             {children}
           </Select>
         </FormControl>
