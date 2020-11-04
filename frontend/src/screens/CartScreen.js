@@ -18,6 +18,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 import ButtonLink from "../components/ButtonLink";
 import SelectQuantity from "../components/SelectQuantity";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   reponsiveListItem: {
     [theme.breakpoints.down("xs")]: {
-      padding: "0"
+      padding: "0",
     },
   },
 }));
@@ -160,10 +161,11 @@ const CartScreen = ({ match, location, history }) => {
                 <Button
                   color="primary"
                   variant="contained"
+                  startIcon={<AddShoppingCartIcon />}
                   disabled={cartItems.length === 0}
                   onClick={handleCheckout}
                 >
-                  Proceed to Checkout
+                  Checkout
                 </Button>
               </ListItem>
             </List>
