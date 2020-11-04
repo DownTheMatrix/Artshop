@@ -8,6 +8,7 @@ import CartScreen from "./screens/CartScreen";
 import PageNotFound from "./screens/PageNotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import LoginScreen from "./screens/LoginScreen";
 
 function App() {
   return (
@@ -17,9 +18,10 @@ function App() {
       <main>
         <Container>
           <Switch>
-            <Route path="/" component={HomeScreen} exact />
+            <Route path="/login" component={LoginScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />
+            <Route path="/" component={HomeScreen} exact />
             <Route component={PageNotFound} />
           </Switch>
         </Container>
