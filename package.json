@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/DownTheMatrix/Artshop#readme",
   "dependencies": {
+    "ansi-html": "0.0.9",
     "ansi-regex": "^6.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
